@@ -12,5 +12,5 @@ yarn install
 
 For starting the server, use this command
 ```bash
-npx polymer serve
+yarn run polymer serve
 ```
