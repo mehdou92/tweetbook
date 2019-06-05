@@ -1,10 +1,16 @@
-# Firechat
+# Tweetbook
 
-Foobar is a Python library for dealing with word pluralization.
+Tweetbook is a simple pwa of twitter.
 
 ## Usage
 
-Pour lancer le serveur, tapez la commande suivante
+Install packages
+
+```bash
+yarn install
+```
+
+For starting the server, use this command
 ```bash
 npx polymer serve
 ```
