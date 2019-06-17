@@ -4,6 +4,7 @@ class ChatHeader extends LitElement {
 
     static get styles() {
         return css`
+
             :host {
                 display: block;
                 background-color: #ffffff;

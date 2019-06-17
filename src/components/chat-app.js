@@ -3,6 +3,7 @@ import './layout/navigation/chat-header.js';
 import './data/chat-data.js';
 import './data/chat-auth.js';
 import './data/chat-login.js';
+import './layout/navigation/tb-header';
 
 class ChatApp extends LitElement {
 
@@ -39,6 +40,7 @@ class ChatApp extends LitElement {
        <chat-data
          path="users"
          @child-changed="${this.userAdded}"></chat-data>
+        <tb-header></tb-header>
        <chat-header></chat-header>
        <main>
         <h2>Hi ${this.user.email}</h2>

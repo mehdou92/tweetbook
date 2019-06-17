@@ -9,8 +9,17 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "autoprefixer": "^9.6.0",
     "firebase": "^6.0.2",
-    "lit-element": "^2.1.0"
+    "lit-element": "^2.1.0",
+    "postcss-cli": "^6.1.2",
+    "tailwindcss": "^1.0.4"
+  },
+  "scripts": {
+    "start": "yarn watch:css run polymer serve",
+    "build": "yarn build:css run polymer serve",
+    "build:css": "postcss src/assets/css/tailwind.css -o src/assets/css/index.css",
+    "watch:css": "postcss src/assets/css/tailwind.css -o src/assets/css/index.css -w"
   },
   "devDependencies": {
     "polymer-cli": "^1.9.9"
