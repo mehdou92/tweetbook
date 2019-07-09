@@ -3,8 +3,6 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
@@ -12,6 +10,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+
+import useForm from '../../customHooks/useForm';
+import validate from '../../rules/RegisterFormValidationRules';
 
 import { FirebaseContext } from "../Firebase";
 
@@ -54,11 +55,35 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Register() {
+export default function Register(props) {
   
   const classes = useStyles();
+
+  const { values, handleChange, handleSubmit, errors } = useForm(handleRegister, validate);
+
   const { getFirebase, getStore } = useContext(FirebaseContext);
   const firebase = getFirebase();
+
+  function handleRegister() {
+    console.log('Handle Register : ', values );
+    insertUserFirebase();
+  }
+
+  function insertUserFirebase() {
+    const db = getStore();
+    firebase.auth().createUserWithEmailAndPassword(values.email, values.password)
+      .then(response => {
+        db.collection('users').add({
+          'username': values.username,
+          'email': values.email
+        });
+
+        props.history.push('/login')
+
+      }).catch(errors => {
+        console.error(errors.message);
+      })
+  }
 
 
   return (
@@ -71,7 +96,7 @@ export default function Register() {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} onSubmit={handleSubmit} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -79,9 +104,12 @@ export default function Register() {
                 required
                 fullWidth
                 id="username"
-                label="Username"
+                label={errors.username ? errors.username : "Username"}
                 name="username"
                 autoComplete="username"
+                onChange={handleChange}
+                value={values.username || ''}
+                error={errors.username ? true : false}
               />
             </Grid>
             <Grid item xs={12}>
@@ -90,9 +118,12 @@ export default function Register() {
                 required
                 fullWidth
                 id="email"
-                label="Email Address"
+                onChange={handleChange}
+                label={errors.email ? errors.email : "Email Adress"}
                 name="email"
                 autoComplete="email"
+                value={values.email || ''}
+                error={errors.email ? true : false}
               />
             </Grid>
             <Grid item xs={12}>
@@ -100,17 +131,14 @@ export default function Register() {
                 variant="outlined"
                 required
                 fullWidth
+                onChange={handleChange}
                 name="password"
-                label="Password"
+                label={errors.password ? errors.password : "Password"}
                 type="password"
                 id="password"
                 autoComplete="current-password"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
+                value={values.password || ''}
+                error={errors.password ? true : false}
               />
             </Grid>
           </Grid>
