@@ -56,7 +56,7 @@ const useStyles = makeStyles(theme => ({
 export default function SignIn(props) {
 
   const classes = useStyles();
-  const { getFirebase, getStore } = useContext(FirebaseContext);
+  const { getFirebase, getStore, user} = useContext(FirebaseContext);
   const firebase = getFirebase();
   const { values, handleChange, handleSubmit, errors } = useForm(handleSignIn, validate);
 
@@ -83,6 +83,7 @@ export default function SignIn(props) {
 
   return (
     <Container component="main" maxWidth="xs">
+      {user && props.history.push('/profile')}
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>

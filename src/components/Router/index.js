@@ -2,11 +2,15 @@ import React from "react";
 import { Route } from "react-router-dom";
 import SignIn from '../SignIn';
 import Register from '../Register';
+import Profile from '../Profile';
+import Logout from '../Logout';
 
 const Router = () => (
     <>
         <Route path="/login" exact component={SignIn} />
         <Route path="/register" exact component={Register} />
+        <Route path="/profile" exact component={Profile} />
+        <Route path="/logout" exact component={Logout} />
         {/* <Route path="/" exact component={listTweet} /> */}
         {/* <Route path="/profile" exact component={Profile} /> */}
         {/* <Route path="/logout" render={() => (

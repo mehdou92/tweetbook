@@ -27,6 +27,15 @@ class FirebaseProvider extends Component {
   getFirebase = () => this.firebase;
   getStore = () => this.store;
 
+  isLogged = () => {
+    const user = firebase.auth().currentUser;
+    if(user){
+      console.log(user);
+    } else {
+      console.error('user not logged');
+    }
+  }
+
   componentDidMount(){
     const user = localStorage.getItem('user');
     if(user) this.setState({user : JSON.parse(user)});
