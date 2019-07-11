@@ -72,7 +72,7 @@ export default function SignIn(props) {
         db.collection('users').where('email', '==', values.email).get()
         .then(response => {
           response.forEach(user => {
-            console.log(" USER DATA : ", user.data());
+            console.log(" USER DATA SIGN IN : ", user.data());
             localStorage.setItem('user', JSON.stringify(user.data()));
           });
           props.history.push('/')
@@ -83,7 +83,7 @@ export default function SignIn(props) {
 
   return (
     <Container component="main" maxWidth="xs">
-      {user && props.history.push('/profile')}
+      {user && props.history.push('/')}
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>

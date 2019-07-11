@@ -25,7 +25,12 @@ const useStyles = makeStyles(theme => ({
 export default function Navbar() {
   const classes = useStyles();
 
-  const { user } = useContext(FirebaseContext);
+  const { user, signOut, isLogged } = useContext(FirebaseContext);
+
+  function handleSignOut() {
+    signOut();
+
+  } 
 
   return (
     <div className={classes.root}>
@@ -37,12 +42,13 @@ export default function Navbar() {
           <Typography variant="h6" className={classes.title}>
             News
           </Typography>
+          {console.log("Nav Bar user : ", isLogged())}
           {user ? <>
             <Link to="/profile">
               <Button color="inherit">Profile</Button>
             </Link>
             <Link to="/logout">
-              <Button color="inherit">Logout</Button>
+              <Button color="inherit" onClick={handleSignOut}>Logout</Button>
             </Link>
           </>
             :

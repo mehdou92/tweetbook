@@ -16,29 +16,45 @@ class FirebaseProvider extends Component {
       this.firebase = firebase.initializeApp(config);
       this.store = firebase.firestore();
     }
+
+    this.signOut = this.signOut.bind(this);
+    this.setUser = this.setUser.bind(this);
+
   }
+
 
   state = {
     user: null,
   };
 
-  setUser = user => this.setState({user : user});
-
+  setUser = user => this.setState({ user: user });
   getFirebase = () => this.firebase;
   getStore = () => this.store;
 
-  isLogged = () => {
-    const user = firebase.auth().currentUser;
-    if(user){
-      console.log(user);
-    } else {
-      console.error('user not logged');
-    }
+  signOut = () => {
+    this.setUser(null);
+    firebase.auth().signOut()
+      .then(function () {
+        localStorage.removeItem('user');
+      }, function (error) {
+        console.error('Signout error :', error);
+      });
   }
 
-  componentDidMount(){
+  isLogged = () => {
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        console.log("user logged :", user);
+      } else {
+        // No user is signed in.
+        console.error('User not logged');
+      }
+    });
+  }
+
+  componentDidMount() {
     const user = localStorage.getItem('user');
-    if(user) this.setState({user : JSON.parse(user)});
+    if (user) this.setState({ user: JSON.parse(user) });
 
   }
 
