@@ -10,6 +10,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import uuid from 'uuid';
 
 import useForm from '../../customHooks/useForm';
 import validate from '../../rules/RegisterFormValidationRules';
@@ -74,6 +75,7 @@ export default function Register(props) {
     firebase.auth().createUserWithEmailAndPassword(values.email, values.password)
       .then(response => {
         db.collection('users').add({
+          'userId': uuid(),
           'username': values.username,
           'email': values.email
         });

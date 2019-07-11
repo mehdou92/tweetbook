@@ -9,7 +9,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function PaperSheet() {
+export default function Tweet() {
   const classes = useStyles();
 
   return (
