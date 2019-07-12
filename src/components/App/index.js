@@ -3,8 +3,9 @@ import { BrowserRouter } from 'react-router-dom';
 import Router from '../Router';
 import Navbar from '../Navbar'
 import FirebaseProvider from '../Firebase';
-import Tweet from '../Tweet';
 import InputTweet from '../InputTweet';
+import ListTweets from '../ListTweet';
+
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <InputTweet />
-        <Tweet />
+        <ListTweets />
         <Router />
       </BrowserRouter>
     </FirebaseProvider>

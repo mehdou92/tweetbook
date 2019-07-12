@@ -3,7 +3,6 @@ import { Route, Redirect } from "react-router-dom";
 import SignIn from '../SignIn';
 import Register from '../Register';
 import Profile from '../Profile';
-import Logout from '../Logout';
 
 const Router = () => (
     <>

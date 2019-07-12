@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -30,7 +30,11 @@ export default function Navbar() {
   function handleSignOut() {
     signOut();
 
-  } 
+  }
+  
+  useEffect(() => {
+
+  },[user]);
 
   return (
     <div className={classes.root}>

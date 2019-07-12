@@ -38,17 +38,11 @@ export default function InputTweet() {
     //   };
 
     const handleChange = (event) => {
-        console.log(values);
         event.persist();
         setValues(values => ({ ...values, [event.target.name]: event.target.value }));
     };
 
     const addNewTweet = () => {
-        console.log('add new tweet');
-        console.log(user.userId);
-        console.log(user.username);
-        console.log(values.tweet);
-
 
         store.collection('tweets').add({
             'userId': user.userId,
