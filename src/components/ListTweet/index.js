@@ -6,7 +6,7 @@ export default function ListTweets(props) {
 
     const { getStore } = useContext(FirebaseContext);
     const store = getStore();
-    const [isLoading, setLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [tweets, setTweets] = useState(null);
 
     const getLastTweets = () => {
@@ -21,7 +21,7 @@ export default function ListTweets(props) {
                     lastTweets.push(<Tweet username={tweet.username} userId={tweet.userId} createdAt={tweet.createdAt} text={tweet.text} nbComment={tweet.comment} nbLike={tweet.like} nbRetweet={tweet.retweet} />);
                     // console.log(doc.id, " => ", doc.data());
                 });
-                setLoading(true);
+                setIsLoading(true);
                 setTweets(lastTweets);
             })
             .catch(function (error) {

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -26,20 +26,25 @@ export default function Navbar() {
   const classes = useStyles();
 
   const { user, signOut, isLogged } = useContext(FirebaseContext);
+  const [isLoading, setIsLoading] = useState(false);
 
   function handleSignOut() {
+    setIsLoading(false);
     signOut();
 
   }
-  
-  useEffect(() => {
 
-  },[user]);
+  useEffect(() => {
+    if (user)
+      setIsLoading(true);
+    else
+      setIsLoading(false);
+
+  }, [user]);
 
   return (
     <div className={classes.root}>
       <AppBar position="static">
-        {console.log(user)}
         <Toolbar>
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="Menu">
             <MenuIcon />
@@ -47,25 +52,28 @@ export default function Navbar() {
           <Typography variant="h6" className={classes.title}>
             News
           </Typography>
+          {
+            isLoading
+              ?
+              <>
+                <Link to={`/profile/${user.username}`}>
+                  <Button color="inherit">Profile</Button>
+                </Link>
+                <Link to="/logout">
+                  <Button color="inherit" onClick={handleSignOut}>Logout</Button>
+                </Link>
+              </>
+              :
+              <>
+                <Link to="/login">
+                  <Button color="inherit">Login</Button>
+                </Link>
+                <Link to="/register">
+                  <Button color="inherit">Register</Button>
+                </Link>
+              </>
+          }
           {console.log("Nav Bar user : ", isLogged())}
-          {user ? <>
-            <Link to="/profile">
-              <Button color="inherit">Profile</Button>
-            </Link>
-            <Link to="/logout">
-              <Button color="inherit" onClick={handleSignOut}>Logout</Button>
-            </Link>
-          </>
-            :
-            <>
-              <Link to="/login">
-                <Button color="inherit">Login</Button>
-              </Link>
-              <Link to="/register">
-                <Button color="inherit">Register</Button>
-              </Link>
-            </>}
-
         </Toolbar>
       </AppBar>
     </div>

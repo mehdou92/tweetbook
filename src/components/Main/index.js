@@ -10,7 +10,6 @@ export default function Main() {
     const [display, setDisplay] = useState(false);
 
     useEffect(() => {
-        console.log("use effect");
         displayMain(user);
     }, [user]);
 
@@ -23,7 +22,6 @@ export default function Main() {
 
     return (
         <>
-            {console.log('STATE DISPLAY = ', display)}
             { display && 
                 <>
                     <InputTweets />

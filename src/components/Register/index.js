@@ -80,7 +80,7 @@ export default function Register(props) {
           'email': values.email
         });
 
-        props.history.push('/login')
+        props.history.push('/');
 
       }).catch(errors => {
         console.error(errors.message);

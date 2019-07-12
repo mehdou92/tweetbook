@@ -10,7 +10,7 @@ const Router = () => (
         <Route path="/" exact component={Main} />
         <Route path="/login" exact component={SignIn} />
         <Route path="/register" exact component={Register} />
-        <Route path="/profile" exact component={Profile} />
+        <Route path="/profile/:username" exact component={Profile} />
         <Route path="/logout" render={() => (
             <Redirect to="/" />
         )} />

@@ -1,5 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
@@ -17,9 +18,11 @@ export default function Tweet(props) {
   return (
     <div>
       <Paper className={classes.root}>
-        <Typography variant="h5" component="h3">
-          {props.username}
-        </Typography>
+        <Link to={`/profile/${props.username}`} >
+          <Typography variant="h5" component="h3">
+            {props.username}
+          </Typography>
+        </Link>
         <Typography component="p">
           {props.text}
         </Typography>
