@@ -3,9 +3,11 @@ import { Route, Redirect } from "react-router-dom";
 import SignIn from '../SignIn';
 import Register from '../Register';
 import Profile from '../Profile';
+import Main from '../Main';
 
 const Router = () => (
     <>
+        <Route path="/" exact component={Main} />
         <Route path="/login" exact component={SignIn} />
         <Route path="/register" exact component={Register} />
         <Route path="/profile" exact component={Profile} />

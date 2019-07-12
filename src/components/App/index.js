@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useContext, useEffect} from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Router from '../Router';
 import Navbar from '../Navbar'
 import FirebaseProvider from '../Firebase';
 import InputTweet from '../InputTweet';
 import ListTweets from '../ListTweet';
+import Main from '../Main';
 
 
 function App() {
@@ -12,8 +13,9 @@ function App() {
     <FirebaseProvider>
       <BrowserRouter>
         <Navbar />
-        <InputTweet />
-        <ListTweets />
+        {/* <Main /> */}
+        {/* <InputTweet />
+        <ListTweets /> */}
         <Router />
       </BrowserRouter>
     </FirebaseProvider>
