@@ -77,7 +77,8 @@ export default function Register(props) {
         db.collection('users').add({
           'userId': uuid(),
           'username': values.username,
-          'email': values.email
+          'email': values.email,
+          'follows': []
         });
 
         props.history.push('/');

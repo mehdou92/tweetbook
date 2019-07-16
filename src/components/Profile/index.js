@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 import ListTweetUser from '../ListTweetUser';
+import FollowBtn from '../FollowBtn';
 
 import { FirebaseContext } from '../Firebase';
 
@@ -88,6 +89,7 @@ export default function Profile(props) {
                   {console.log(profileUser)}
                   Profile {profileUser.username}
                 </Typography>
+                <FollowBtn user={profileUser} />
                 <ListTweetUser userId={profileUser.userId} />
                 <Typography variant="h5" component="h2" gutterBottom>
                   {'Pin a footer to the bottom of the viewport.'}
