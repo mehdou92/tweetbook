@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { FirebaseContext } from '../Firebase';
+import uuid from 'uuid';
 
 
 const useStyles = makeStyles(theme => ({
@@ -45,13 +46,15 @@ export default function InputTweet() {
     const addNewTweet = () => {
 
         store.collection('tweets').add({
+            'tweetId': uuid(),
             'userId': user.userId,
             'username': user.username,
             'text': values.tweet,
             'createdAt' : Date.now(),
             'like': 0,
             'retweet': 0,
-            'comment': 0
+            'comment': 0,
+            'userIdRetweet': []
         });
         setNewTweet('');
     };

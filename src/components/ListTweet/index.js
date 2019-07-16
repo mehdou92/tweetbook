@@ -18,7 +18,7 @@ export default function ListTweets(props) {
             .then(function (querySnapchot) {
                 querySnapchot.forEach(function (doc) {
                     const tweet = doc.data();
-                    lastTweets.push(<Tweet username={tweet.username} userId={tweet.userId} createdAt={tweet.createdAt} text={tweet.text} nbComment={tweet.comment} nbLike={tweet.like} nbRetweet={tweet.retweet} />);
+                    lastTweets.push(<Tweet tweetId={tweet.tweetId} username={tweet.username} userId={tweet.userId} createdAt={tweet.createdAt} text={tweet.text} nbComment={tweet.comment} nbLike={tweet.like} nbRetweet={tweet.retweet} />);
                     // console.log(doc.id, " => ", doc.data());
                 });
                 setIsLoading(true);

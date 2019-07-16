@@ -11,6 +11,8 @@ export default function Main() {
 
     useEffect(() => {
         displayMain(user);
+        // console.log('display a verifier dans MAIN 5= ', display);
+        // console.log('display a verifier dans MAIN = ', user);
     }, [user]);
 
     const displayMain = (user) => {
@@ -22,7 +24,7 @@ export default function Main() {
 
     return (
         <>
-            { display && 
+            {display &&
                 <>
                     <InputTweets />
                     <ListTweets />

@@ -44,7 +44,7 @@ class FirebaseProvider extends Component {
   isLogged = () => {
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
-        console.log("USER LOGGED :", user);
+        //console.log("USER LOGGED :", user);
         return true;
       } else {
         // No user is signed in.

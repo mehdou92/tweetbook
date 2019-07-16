@@ -85,7 +85,6 @@ export default function Profile(props) {
               <CssBaseline />
               <Container component="main" className={classes.main} maxWidth="sm">
                 <Typography variant="h2" component="h1" gutterBottom>
-                  {console.log(profileUser)}
                   Profile {profileUser.username}
                 </Typography>
                 <ListTweetUser userId={profileUser.userId} />

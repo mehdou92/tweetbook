@@ -46,9 +46,12 @@ export default function Navbar() {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
+          <Link to="/">
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="Menu">
             <MenuIcon />
           </IconButton>
+          </Link>
+
           <Typography variant="h6" className={classes.title}>
             News
           </Typography>
@@ -73,7 +76,8 @@ export default function Navbar() {
                 </Link>
               </>
           }
-          {console.log("Nav Bar user : ", isLogged())}
+          {/* {console.log("Nav Bar user : ", user)}
+          {console.log("Nav Bar isLogged : ", isLogged())} */}
         </Toolbar>
       </AppBar>
     </div>
