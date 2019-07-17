@@ -181,10 +181,12 @@ export default function ListTweetsUSer(props) {
                 getLastTweets.then(values => {
                     orderedTweets.push(...values);
                     console.log(orderedTweets);
-                    orderedTweets.sort(function (a, b){
-                        return new Date(a.createdAt) + new Date(b.createdAt);
-                    })
+                    console.log(orderedTweets[0]);
+                    // orderedTweets.sort(function (a, b){
+                    //     return a.createdAt > new Date b.createdAt;
+                    // })
 
+                    orderedTweets.sort((a,b) => b.createdAt - a.createdAt)
                     console.log('sort ARRAY : ', orderedTweets);
                     setListTweets(orderedTweets);
                     setIsLoading(true);
