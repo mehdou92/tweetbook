@@ -1,42 +1,13 @@
 import React, { useState, useContext } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
 import { FirebaseContext } from '../Firebase';
 import uuid from 'uuid';
 
-
-const useStyles = makeStyles(theme => ({
-    container: {
-        display: 'flex',
-        flexWrap: 'wrap',
-    },
-    textField: {
-        marginLeft: theme.spacing(1),
-        marginRight: theme.spacing(1),
-    },
-    dense: {
-        marginTop: theme.spacing(2),
-    },
-    menu: {
-        width: 200,
-    },
-    submit: {
-        margin: theme.spacing(3, 0, 2),
-      },
-}));
-
 export default function InputTweet() {
-    const classes = useStyles();
     const [values, setValues] = useState({});
     const { getStore, user } = useContext(FirebaseContext);
     const [newTweet, setNewTweet] = useState('');
 
     const store = getStore();
-
-    //   const handleChange = name => event => {
-    //     setValues({ ...values, [name]: event.target.value });
-    //   };
 
     const handleChange = (event) => {
         event.persist();
@@ -50,7 +21,7 @@ export default function InputTweet() {
             'userId': user.userId,
             'username': user.username,
             'text': values.tweet,
-            'createdAt' : Date.now(),
+            'createdAt': Date.now(),
             'like': 0,
             'retweet': 0,
             'comment': 0,
@@ -60,29 +31,27 @@ export default function InputTweet() {
     };
 
     return (
-        <div className={classes.container} noValidate autoComplete="off">
-            <TextField
+        <div class="w-full md:w-1/2 px-3">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="input-tweet">
+                What's happening ?
+      </label>
+            <input
+                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 id="input-tweet"
-                label="What's happening ?"
-                multiline
+                type="text"
                 placeholder="What's happening ?"
-                rowsMax="4"
-                fullWidth={true}
+                maxLength="280"
                 name="tweet"
-                value={values.tweet}
+                value={values.tweet || ''}
                 onChange={handleChange}
-                className={classes.textField}
-                margin="normal"
-                variant="outlined"
-                inputProps={{ maxLength: 280}}
             />
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick={addNewTweet}
-          > Tweet</Button>
+            <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+                type="submit"
+                onClick={addNewTweet}
+            >
+                Tweet
+</button>
         </div>
     );
 }

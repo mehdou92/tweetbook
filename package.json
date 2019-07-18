@@ -3,8 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "^4.2.0",
-    "@material-ui/icons": "^4.2.1",
     "firebase": "^6.2.4",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
@@ -13,8 +11,9 @@
     "uuid": "^3.3.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "tailwindcss": "yarn run tailwind build src/css/index.css -c src/css/tailwind.config.js -o src/css/tailwind.css",
+    "start": "yarn run tailwindcss && react-scripts start",
+    "build": "yarn run tailwindcss && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -32,5 +31,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "tailwindcss": "^1.0.5"
   }
 }

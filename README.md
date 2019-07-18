@@ -1,3 +1,10 @@
+## Start project
+
+Create configuration file for `tailwindcss` :
+
+`./node_modules/.bin/tailwind init tailwind.js`
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
