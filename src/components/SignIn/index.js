@@ -6,7 +6,7 @@ import { FirebaseContext } from '../Firebase';
 
 export default function SignIn(props) {
 
-  const { getFirebase, getStore, user} = useContext(FirebaseContext);
+  const { getFirebase, getStore, user, setUser} = useContext(FirebaseContext);
   const firebase = getFirebase();
   const { values, handleChange, handleSubmit, errors } = useForm(handleSignIn, validate);
 
@@ -23,6 +23,7 @@ export default function SignIn(props) {
         .then(response => {
           response.forEach(user => {
             console.log(" USER DATA SIGN IN : ", user.data());
+            setUser(user.data());
             localStorage.setItem('user', JSON.stringify(user.data()));
           });
           props.history.push('/')

@@ -11,6 +11,7 @@ export default function ListTweetsUSer(props) {
     const [tweets, setTweets] = useState(null);
     const [retweets, setRetweets] = useState(null);
     const [listTweets, setListTweets] = useState(null);
+    const [listElemTweets, setListElemTweets] = useState(null);
 
     // const getLastTweets = () => {
 
@@ -85,6 +86,8 @@ export default function ListTweetsUSer(props) {
                 .then(function (querySnapshot) {
                     querySnapshot.forEach(function (doc) {
                         const retweet = doc.data();
+                        retweet.isRetweet = true;
+                        console.log('retweet user ', retweet);
                         tmpTab.push(retweet);
                     });
                     if(tmpTab.length === tweetIds[0].length){
@@ -180,8 +183,6 @@ export default function ListTweetsUSer(props) {
                 orderedTweets.push(...rtUser);
                 getLastTweets.then(values => {
                     orderedTweets.push(...values);
-                    console.log(orderedTweets);
-                    console.log(orderedTweets[0]);
                     // orderedTweets.sort(function (a, b){
                     //     return a.createdAt > new Date b.createdAt;
                     // })
@@ -189,6 +190,7 @@ export default function ListTweetsUSer(props) {
                     orderedTweets.sort((a,b) => b.createdAt - a.createdAt)
                     console.log('sort ARRAY : ', orderedTweets);
                     setListTweets(orderedTweets);
+                    displayListTweets(orderedTweets);
                     setIsLoading(true);
                 })
             })       
@@ -209,6 +211,15 @@ export default function ListTweetsUSer(props) {
         //     setIsLoading(true);
     }
 
+    const displayListTweets = (arrayTweets) => {
+        const renderElem = [];
+        arrayTweets.forEach(tweet => {
+            console.log('elem display', tweet);
+            renderElem.push(<Tweet tweetId={tweet.tweetId} username={tweet.username} userId={tweet.userId} createdAt={tweet.createdAt} text={tweet.text} nbComment={tweet.comment} nbLike={tweet.like} nbRetweet={tweet.retweet} />);
+        })
+        setListElemTweets(renderElem);
+    }
+
     useEffect(() => {
         // getLastTweets();
         // getRetweet();
@@ -217,11 +228,12 @@ export default function ListTweetsUSer(props) {
         //     console.log(data);
         // })
         // orderTweet();
-    }, []);
+        console.log('state ordered tweets ', listTweets);
+    }, [isLoading]);
 
     return (
         <>
-            {isLoading ? tweets : <h2>isLoading</h2>}
+            {isLoading ? listElemTweets : <h2>isLoading</h2>}
         </>
     );
 }
