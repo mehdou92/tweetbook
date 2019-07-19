@@ -215,7 +215,7 @@ export default function ListTweetsUSer(props) {
         const renderElem = [];
         arrayTweets.forEach(tweet => {
             console.log('elem display', tweet);
-            renderElem.push(<Tweet tweetId={tweet.tweetId} username={tweet.username} userId={tweet.userId} createdAt={tweet.createdAt} text={tweet.text} nbComment={tweet.comment} nbLike={tweet.like} nbRetweet={tweet.retweet} />);
+            renderElem.push(<Tweet tweetId={tweet.tweetId} username={tweet.username} userId={tweet.userId} createdAt={tweet.createdAt} text={tweet.text} nbComment={tweet.comment} nbLike={tweet.like} nbRetweet={tweet.retweet} retweeted={tweet.isRetweet && true} />);
         })
         setListElemTweets(renderElem);
     }
