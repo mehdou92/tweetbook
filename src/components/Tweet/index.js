@@ -17,9 +17,14 @@ export default function Tweet(props) {
         querySnapshot.forEach(function (doc) {
           console.log('Tweet id + data', doc.id, " => ", doc.data());
           // Build doc ref from doc.id
-          store.collection("tweets").doc(doc.id)
-            .update({ userIdRetweet: firebase.firestore.FieldValue.arrayUnion(user.userId) })
-        });
+        //   store.collection("tweets").doc(doc.id)
+        //     .update({ userIdRetweet: firebase.firestore.FieldValue.arrayUnion(user.userId) })
+        // });  
+        store.collection("tweets").doc(doc.id).collection('retweet').doc(user.userId).set({
+          userIdRetweet : user.userId,
+          retweetedAt : Date.now(),
+        })
+    });
       });
 
     store.collection('users').where('userId', '==', user.userId)
@@ -28,15 +33,21 @@ export default function Tweet(props) {
         querySnapshot.forEach(function (doc) {
           console.log(doc.id, doc.data());
 
-          store.collection("users").doc(doc.id)
-            .update({ retweetId: firebase.firestore.FieldValue.arrayUnion(props.tweetId) })
+          // store.collection("users").doc(doc.id)
+          //   .update({ retweetId: firebase.firestore.FieldValue.arrayUnion(props.tweetId) })
+
+
+          store.collection("users").doc(doc.id).collection('retweet').doc(props.tweetId).set({
+            tweetId: props.tweetId,
+            retweetedAt : Date.now(),
+          })
+          
         });
       });
   }
 
   return (
       <div class="font-sans rounded border px-6 py-4 max-w-md">
-        {console.log('Tweet user', user)}
         <div>
           {user.userId !== props.userId 
             ? 
