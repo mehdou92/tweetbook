@@ -35,7 +35,7 @@ export default function Tweet(props) {
   }
 
   return (
-      <div class="font-sans rounded border px-6 py-4 max-w-md">
+      <div class="font-sans rounded bg-blue-900 text-white border px-6 py-4 max-w-md">
         {console.log('Tweet user', user)}
         <div>
           {user.userId !== props.userId 
@@ -50,9 +50,9 @@ export default function Tweet(props) {
         </div>
         <div class="flex items-center">
           <img src="https://i.imgur.com/qACoKgY.jpg" class="h-12 w-12 rounded-full" />
-          <div class="flex flex-col ml-4">
+          <div class="flex flex-col ml-4 text-gray-600">
             <Link to={`/profile/${props.username}`} >
-              <span class="font-bold text-black">{props.username}</span>
+              <span class="font-bold text-white">{props.username}</span>
             </Link>
             <span class="text-grey">@{props.username}</span>
             
