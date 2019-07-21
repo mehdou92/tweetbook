@@ -40,10 +40,10 @@ export default function Register(props) {
 
 
   return (
-      <div class="w-full max-w-xs">
-        <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
+      <div class="w-full max-w-xs mx-auto">
+        <form class="rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
           <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+            <label class="block text-white text-sm font-bold mb-2" for="username">
               Username
       </label>
             <input
@@ -58,7 +58,7 @@ export default function Register(props) {
             />
           </div>
           <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+            <label class="block text-white text-sm font-bold mb-2" for="email">
               Email Adress
       </label>
             <input
@@ -72,7 +72,7 @@ export default function Register(props) {
             />
           </div>
           <div class="mb-6">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+            <label class="block text-white text-sm font-bold mb-2" for="password">
               Password
       </label>
             <input
@@ -91,7 +91,7 @@ export default function Register(props) {
               type="submit">
               Register
       </button>
-            <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
+            <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-300" href="#">
               Forgot Password?
       </a>
           </div>
