@@ -28,7 +28,8 @@ export default function Register(props) {
           'userId': uuid(),
           'username': values.username,
           'email': values.email,
-          'retweet': []
+          'retweet': [],
+          'follows': []
         });
 
         props.history.push('/');

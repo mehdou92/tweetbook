@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import OfflineDetection from '../OfflineDetection';
 
 import { FirebaseContext } from '../Firebase';
 
@@ -79,6 +80,7 @@ export default function Navbar() {
             </div>
           </div>
         </nav>
+        <OfflineDetection />
       </div>
     </div>
   );

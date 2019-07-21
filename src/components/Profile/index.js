@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import ListTweetUser from '../ListTweetUser';
+import FollowBtn from '../FollowBtn';
 
 import { FirebaseContext } from '../Firebase';
 
@@ -63,7 +64,7 @@ export default function Profile(props) {
                       </div>
                     </div>
                     <div class="flex">
-                      <button class="flex-1 rounded-full bg-blue-500 text-white antialiased font-bold hover:bg-blue-dark px-4 py-2 mr-2">Follow</button>
+                      <FollowBtn user={profileUser} />
                       <button class="flex-1 rounded-full border-2 border-grey font-semibold text-black px-4 py-2">Message</button>
                     </div>
                   </div>
