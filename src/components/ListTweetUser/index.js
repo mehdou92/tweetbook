@@ -51,17 +51,26 @@ export default function ListTweetsUSer(props) {
 
         let listRetweets = [];
         return new Promise((resolve, reject) => {
+
             document.ref.collection('retweet').get()
-                .then((querySnapshot) => {
-                    querySnapshot.forEach(function (doc) {
-                        const retweet = doc.data();
-                        listRetweets.push(retweet);
-                    });
-                    resolve(listRetweets);
-                })
-                .catch(function (error) {
-                    reject(error);
-                    console.error('Error getRetweetFromCollection ', error);
+                .then(sub => {
+                    if (sub.docs.length > 0) {
+                        document.ref.collection('retweet').get()
+                            .then((querySnapshot) => {
+                                querySnapshot.forEach(function (doc) {
+                                    const retweet = doc.data();
+                                    listRetweets.push(retweet);
+                                });
+                                resolve(listRetweets);
+                            })
+                            .catch(function (error) {
+                                reject(error);
+                                console.error('Error getRetweetFromCollection ', error);
+                            })
+
+                    } else {
+                        resolve(listRetweets);
+                    }
                 })
         })
     }
@@ -71,7 +80,7 @@ export default function ListTweetsUSer(props) {
         const tmpTab = [];
 
         return new Promise((resolve, reject) => {
-            if (tweetIds === undefined) {
+            if (tweetIds === undefined || !tweetIds.length > 0) {
                 resolve(tmpTab);
             } else {
                 tweetIds.forEach(function (elem) {
@@ -123,8 +132,8 @@ export default function ListTweetsUSer(props) {
                 getTweetFromRetweet(rtUser).then(tweets => {
                     const feedTweet = setDateTweet(tweets, rtUser);
                     orderedTweets.push(...feedTweet);
-                    getLastTweets.then(values => {
-                        const lastTweet = setDateLastTweet(values);
+                    getLastTweets.then(lastTweetUser => {
+                        const lastTweet = setDateLastTweet(lastTweetUser);
                         orderedTweets.push(...lastTweet);
                         orderedTweets.sort((a, b) => b.dateFeed - a.dateFeed)
                         setListTweets(orderedTweets);
