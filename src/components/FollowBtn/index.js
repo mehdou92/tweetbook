@@ -26,6 +26,17 @@ export default function FollowBtn(props) {
           user.follows.push(props.user.userId);
         });   
       });
+
+      store.collection("users").where("userId", "==", props.user.userId)
+      .get()
+      .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+
+          store.collection("users").doc(doc.id)
+            .update({ followers: firebase.firestore.FieldValue.arrayUnion(user.userId) })
+          user.follows.push(props.user.userId);
+        });   
+      });
     } else {
       store.collection("users").where("userId", "==", user.userId)
       .get()
@@ -35,7 +46,18 @@ export default function FollowBtn(props) {
           store.collection("users").doc(doc.id)
             .update({ follows : firebase.firestore.FieldValue.arrayRemove(props.user.userId) })
 
-      });   
+        });   
+      });
+
+      store.collection("users").where("userId", "==", props.user.userId)
+      .get()
+      .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+
+          store.collection("users").doc(doc.id)
+            .update({ followers: firebase.firestore.FieldValue.arrayRemove(user.userId) })
+          user.follows.push(props.user.userId);
+        });   
       });
     }
     

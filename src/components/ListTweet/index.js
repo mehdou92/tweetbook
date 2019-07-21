@@ -14,23 +14,51 @@ export default function ListTweets(props) {
         let lastTweets = [];
         let search = user.follows;
         search.push(user.userId);
-        search.forEach(follow => {
-            store.collection('tweets').where('userId', '==', follow).limit(20)
+
+        for (let index = 0; index < search.length; index++) {
+            const element = search[index];
+            store.collection('tweets').where('userId', '==', element)
             .get()
             .then(function (querySnapchot) {
                 querySnapchot.forEach(function (doc) {
                     const tweet = doc.data();
                     lastTweets.push(<Tweet tweetId={tweet.tweetId} username={tweet.username} userId={tweet.userId} createdAt={tweet.createdAt} text={tweet.text} nbComment={tweet.comment} nbLike={tweet.like} nbRetweet={tweet.retweet} />);
                 });
-                setIsLoading(true);
                 
+                if(index == search.length - 1) {
+                    console.warn('lastLoop : ', element);
+                    console.warn('last : ', lastTweets)
+                    lastTweets.sort((a, b) => b.dateFeed - a.dateFeed);
+                    setIsLoading(true);
+                    // console.warn(lastTweets);
+                    setTweets(lastTweets);
+                }
             })
             .catch(function (error) {
                 console.error("ERROR getting documents tweets ", error);
             });
-        });
+        }
+
+        // search.forEach(follow => {
+        //     store.collection('tweets').where('userId', '==', follow).limit(20)
+        //     .get()
+        //     .then(function (querySnapchot) {
+        //         querySnapchot.forEach(function (doc) {
+        //             const tweet = doc.data();
+        //             lastTweets.push(<Tweet tweetId={tweet.tweetId} username={tweet.username} userId={tweet.userId} createdAt={tweet.createdAt} text={tweet.text} nbComment={tweet.comment} nbLike={tweet.like} nbRetweet={tweet.retweet} />);
+        //         });
+        //         setTweets(lastTweets);
+        //         setIsLoading(true);
+                
+        //     })
+        //     .catch(function (error) {
+        //         console.error("ERROR getting documents tweets ", error);
+        //     });
+        //     console.warn('tweets : ', lastTweets);
+            
+        // });
+        // console.warn('lastTweets : ', lastTweets);
         
-        setTweets(lastTweets);
         
     }
 
