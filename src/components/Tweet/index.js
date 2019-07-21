@@ -11,51 +11,143 @@ export default function Tweet(props) {
 
   const retweet = () => {
     console.log('retweet');
+    console.log('props tweetid ', props.tweetId);
     store.collection('tweets').where('tweetId', '==', props.tweetId)
       .get()
       .then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
           console.log('Tweet id + data', doc.id, " => ", doc.data());
-          // document.ref.collection('retweet').get()
-          doc.ref.collection('retweet')
-          .get()
-          .then(function (querySnapshot) {
-            querySnapshot.forEach(function (doc) {
-              console.log('doc data collection', doc.data());
-              const collectionRetweet = doc.data();
-              if(collectionRetweet.userIdRetweet === user.userId){
-                //decremente 
-                console.log('DECREMENTE UN');
+          console.log('toto');
+          //document.ref.collection('retweet').get()
+          console.log(doc);
+
+          store.collection('tweets').doc(doc.id).collection('retweet').get()
+            .then(sub => {
+              if (sub.docs.length > 0) {
+                console.log('sub exist');
+                console.log(sub);
+
+                let BreakException = {};
+                let alreadyRt = null;
+
+                store.collection('tweets').doc(doc.id).collection('retweet')
+                  .get()
+                  .then(function (querySnapshot) {
+
+                    try {
+                      querySnapshot.forEach(function (doc) {
+                        let collectionRetweet = doc.data();
+                        if (collectionRetweet.userIdRetweet === user.userId) {
+                          console.log('already rt');
+                          alreadyRt = doc.data();
+                          throw BreakException;
+                        }
+                      });
+                    } catch (e) {
+                      if (e !== BreakException) throw e;
+                    }
+
+                    if (alreadyRt) {
+                      console.log('DECREMENTE');
+
+                      store.collection("tweets").doc(alreadyRt.docId).update({
+                        retweet: firebase.firestore.FieldValue.increment(-1)
+                      })
+
+                      store.collection("tweets").doc(alreadyRt.docId).collection('retweet').doc(user.userId).delete().then(function () {
+                        console.log("Document successfully deleted!");
+                      }).catch(function (error) {
+                        console.error("Error removing document: ", error);
+                      })
+
+                    } else {
+                      console.log('INCREMENTE');
+                      querySnapshot.forEach(function (doc) {
+                        let collectionRetweet = doc.data();
+                        store.collection("tweets").doc(collectionRetweet.docId).collection('retweet').doc(user.userId).set({
+                          userIdRetweet: user.userId,
+                          retweetedAt: Date.now(),
+                          docId: collectionRetweet.docId
+                        })
+                        store.collection("tweets").doc(collectionRetweet.docId).update({
+                          retweet: firebase.firestore.FieldValue.increment(1)
+                        })
+                      })
+                    }
+                  })
               } else {
-                //incremente
+                // subCollection don't exist 
+                console.log('sub dont exist ');
                 store.collection("tweets").doc(doc.id).collection('retweet').doc(user.userId).set({
                   userIdRetweet: user.userId,
                   retweetedAt: Date.now(),
+                  docId: doc.id
                 })
                 store.collection("tweets").doc(doc.id).update({
                   retweet: firebase.firestore.FieldValue.increment(1)
                 })
               }
             })
-          })
-        });
+        })
       });
 
     store.collection('users').where('userId', '==', user.userId)
       .get()
       .then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
-          console.log(doc.id, doc.data());
+          store.collection("users").doc(doc.id).collection('retweet').get()
+            .then(sub => {
+              if (sub.docs.length > 0) {
+                console.log('sub exist user');
+                console.log(sub);
 
-          // store.collection("users").doc(doc.id)
-          //   .update({ retweetId: firebase.firestore.FieldValue.arrayUnion(props.tweetId) })
+                let BreakUser = {};
+                let userAlreadyRt = null;
 
+                store.collection('users').doc(doc.id).collection('retweet')
+                  .get()
+                  .then(function (querySnapshot) {
 
-          store.collection("users").doc(doc.id).collection('retweet').doc(props.tweetId).set({
-            tweetId: props.tweetId,
-            retweetedAt: Date.now(),
-          })
+                    try {
+                      querySnapshot.forEach(function (doc) {
+                        let collectionRtUser = doc.data();
+                        if (collectionRtUser.tweetId === props.tweetId) {
+                          console.log('already rt user');
+                          userAlreadyRt = doc.data();
+                          throw BreakUser;
+                        }
+                      })
+                    } catch (e) {
+                      if (e !== BreakUser) throw e;
+                    }
 
+                    if (userAlreadyRt) {
+                      console.log('DECREMENTE USER');
+                      console.log(userAlreadyRt);
+
+                      store.collection('users').doc(doc.id).collection('retweet').doc(userAlreadyRt.tweetId).delete().then(function () {
+                        console.log("Document successfully deleted!");
+                      }).catch(function (error) {
+                        console.error("Error removing document: ", error);
+                      })
+                    } else {
+                      console.log('INCREMENTE USER');
+
+                      store.collection("users").doc(doc.id).collection('retweet').doc(props.tweetId).set({
+                        tweetId: props.tweetId,
+                        retweetedAt: Date.now(),
+                      })
+                    }
+                  })
+
+              } else {
+                console.log('sub dont exit user');
+                store.collection("users").doc(doc.id).collection('retweet').doc(props.tweetId).set({
+                  tweetId: props.tweetId,
+                  retweetedAt: Date.now(),
+                })
+              }
+            })
         });
       });
   }
@@ -74,7 +166,7 @@ export default function Tweet(props) {
           : ''}
       </div>
       <div class="flex items-center">
-        {console.log('nbRetweet ',props.nbRetweet)}
+        {console.log('nbRetweet ', props.nbRetweet)}
         <img src="https://i.imgur.com/qACoKgY.jpg" class="h-12 w-12 rounded-full" />
         <div class="flex flex-col ml-4">
           <Link to={`/profile/${props.username}`} >
