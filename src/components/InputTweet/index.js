@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { FirebaseContext } from '../Firebase';
 import uuid from 'uuid';
+import './index.scss';
 
 export default function InputTweet() {
     const [values, setValues] = useState({});
@@ -47,12 +48,12 @@ export default function InputTweet() {
     
 
     return (
-        <div class="w-full md:w-1/2 px-3">
-            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="input-tweet">
+        <div class="w-full md:w-1/2 bg-blue-900 px-3 tweeter-border">
+            <label class="block uppercase tracking-wide text-white text-xs font-bold mb-2" for="input-tweet">
                 What's happening ?
       </label>
             <input
-                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 id="input-tweet"
                 type="text"
                 placeholder="What's happening ?"
@@ -62,7 +63,7 @@ export default function InputTweet() {
                 onChange={handleChange}
             />
             <button
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mb-2 rounded-full"
                 type="submit"
                 onClick={addNewTweet}
             >
