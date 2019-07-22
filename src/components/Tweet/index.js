@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import './index.scss';
 
 import * as firebase from 'firebase';
 
@@ -35,7 +36,7 @@ export default function Tweet(props) {
   }
 
   return (
-      <div class="font-sans rounded bg-blue-900 text-white border px-6 py-4 max-w-md">
+      <div class="mx-auto font-sans rounded bg-blue-900 text-white border px-6 py-4 max-w-md tweet">
         {console.log('Tweet user', user)}
         <div>
           {user.userId !== props.userId 
