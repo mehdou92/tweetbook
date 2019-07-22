@@ -8,12 +8,15 @@ export default function ListTweets(props) {
     const store = getStore();
     const [isLoading, setIsLoading] = useState(false);
     const [tweets, setTweets] = useState(null);
-
+    let lastTweets = [];
     const getLastTweets = () => {
 
-        let lastTweets = [];
-        let search = user.follows;
-        search.push(user.userId);
+        
+        let search = [];
+        search = user.follows;
+        if(!search.includes(user.userId)) {
+            search.push(user.userId);
+        }
 
         for (let index = 0; index < search.length; index++) {
             const element = search[index];
@@ -26,11 +29,8 @@ export default function ListTweets(props) {
                 });
                 
                 if(index == search.length - 1) {
-                    console.warn('lastLoop : ', element);
-                    console.warn('last : ', lastTweets)
                     lastTweets.sort((a, b) => b.dateFeed - a.dateFeed);
                     setIsLoading(true);
-                    // console.warn(lastTweets);
                     setTweets(lastTweets);
                 }
             })
