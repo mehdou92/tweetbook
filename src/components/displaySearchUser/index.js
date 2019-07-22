@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import Loader from '../Loader';
 
 import { FirebaseContext } from '../Firebase';
 
@@ -21,7 +22,6 @@ export default function DisplaySearchUser(props) {
             .get()
             .then(function (querySnapshot) {
                 querySnapshot.forEach(function (doc) {
-                    console.log(doc.id, ' ', doc.data());
                     resultQueryUser = doc.data();
                 })
                 setResultQuery(resultQueryUser)
@@ -40,7 +40,7 @@ export default function DisplaySearchUser(props) {
     return (
         isLoading
             ?
-            <h1>Loading ...</h1>
+            <Loader />
             :
             <>
                 {

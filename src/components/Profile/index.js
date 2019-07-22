@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import ListTweetUser from '../ListTweetUser';
 import FollowBtn from '../FollowBtn';
+import Loader from '../Loader';
 
 import { FirebaseContext } from '../Firebase';
 
@@ -93,7 +94,7 @@ export default function Profile(props) {
 
         </>
         :
-        <h2>is Loading</h2>
+        <Loader />
       }
     </>
   );

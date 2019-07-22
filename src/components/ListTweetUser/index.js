@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Tweet from '../Tweet';
 import { FirebaseContext } from "../Firebase";
+import Loader from '../Loader';
 
 export default function ListTweetsUSer(props) {
 
@@ -167,7 +168,7 @@ export default function ListTweetsUSer(props) {
 
     return (
         <>
-            {isLoading ? listElemTweets : <h2>isLoading</h2>}
+            {isLoading ? listElemTweets : <Loader />}
         </>
     );
 }
