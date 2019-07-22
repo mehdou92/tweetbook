@@ -15,7 +15,6 @@ export default function Navbar() {
     signOut();
 
   }
-
   useEffect(() => {
     if (user)
       setIsLoading(true);
@@ -41,7 +40,7 @@ export default function Navbar() {
                 </button>
               </Link>
               {
-                isLoading
+                (isLoading && user)
                   ?
                   <>
                     <Link to={`/profile/${user.username}`}>

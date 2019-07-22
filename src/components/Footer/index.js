@@ -16,6 +16,7 @@ export default function Footer() {
     }
 
     useEffect(() => {
+
         if (user)
             setIsLoading(true);
         else
@@ -36,9 +37,10 @@ export default function Footer() {
                                 </button>
                             </Link>
                             {
-                                isLoading
+                                (isLoading && user)
                                     ?
                                     <>
+                                        {console.log('isloading true')}
                                         <Link to={`/profile/${user.username}`} class="flex-1">
                                             <button class="flex mr-2 text-blue-500 hover:bg-blue-900 font-semibold py-2 px-4">
                                                 Profil
