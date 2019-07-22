@@ -48,7 +48,7 @@ export default function InputTweet() {
     
 
     return (
-        <div class="w-full md:w-1/2 bg-blue-900 px-3 tweeter-border">
+        <div class="mx-auto w-full md:w-1/2 bg-blue-900 px-3 tweeter-border">
             <label class="block uppercase tracking-wide text-white text-xs font-bold mb-2" for="input-tweet">
                 What's happening ?
       </label>

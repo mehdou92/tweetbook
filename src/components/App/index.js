@@ -6,6 +6,7 @@ import FirebaseProvider from '../Firebase';
 import InputTweet from '../InputTweet';
 import ListTweets from '../ListTweet';
 import Main from '../Main';
+import Footer from "../Footer";
 
 
 function App() {
@@ -17,6 +18,8 @@ function App() {
         {/* <InputTweet />
         <ListTweets /> */}
         <Router />
+          <Footer />
+
       </BrowserRouter>
     </FirebaseProvider>
 

@@ -12,23 +12,29 @@ export default function ListTweets(props) {
     const getLastTweets = () => {
 
         let lastTweets = [];
-        let search = user.follows;
-        search.push(user.userId);
-        search.forEach(follow => {
-            store.collection('tweets').where('userId', '==', follow).limit(20)
-            .get()
-            .then(function (querySnapchot) {
-                querySnapchot.forEach(function (doc) {
-                    const tweet = doc.data();
-                    lastTweets.push(<Tweet tweetId={tweet.tweetId} username={tweet.username} userId={tweet.userId} createdAt={tweet.createdAt} text={tweet.text} nbComment={tweet.comment} nbLike={tweet.like} nbRetweet={tweet.retweet} />);
-                });
-                setIsLoading(true);
-                
-            })
-            .catch(function (error) {
-                console.error("ERROR getting documents tweets ", error);
+        if(user.follows) {
+
+            let search = user.follows;
+            search.push(user.userId);
+            search.forEach(follow => {
+                store.collection('tweets').where('userId', '==', follow).limit(20)
+                    .get()
+                    .then(function (querySnapchot) {
+                        querySnapchot.forEach(function (doc) {
+                            const tweet = doc.data();
+                            lastTweets.push(<Tweet tweetId={tweet.tweetId} username={tweet.username}
+                                                   userId={tweet.userId} createdAt={tweet.createdAt} text={tweet.text}
+                                                   nbComment={tweet.comment} nbLike={tweet.like}
+                                                   nbRetweet={tweet.retweet}/>);
+                        });
+                        setIsLoading(true);
+
+                    })
+                    .catch(function (error) {
+                        console.error("ERROR getting documents tweets ", error);
+                    });
             });
-        });
+        }
         
         setTweets(lastTweets);
         
