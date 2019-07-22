@@ -1,8 +1,8 @@
 import React, { useContext, useState, useEffect } from 'react';
 import ListTweetUser from '../ListTweetUser';
 import FollowBtn from '../FollowBtn';
+import Loader from '../Loader';
 import './index.scss';
-
 
 import { FirebaseContext } from '../Firebase';
 
@@ -110,10 +110,9 @@ export default function Profile(props) {
               </div>
             </>
           }
-
         </>
         :
-        <h2>is Loading</h2>
+        <Loader />
       }
     </>
   );
