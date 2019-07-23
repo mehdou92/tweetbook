@@ -69,6 +69,7 @@ export default function Profile(props) {
                     </div>
                     <div class="flex-1 ">
                       <FollowBtn user={profileUser} />
+                      <button class="inline-flex bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mb-2 rounded-full">Change profile picture</button>
                       <button class="inline-flex bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mb-2 rounded-full">Message</button>
                       <button className="inline-flex bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mb-2 rounded-full">Follow</button>
                     </div>
