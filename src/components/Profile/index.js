@@ -110,7 +110,7 @@ export default function Profile(props) {
                     }
                 </>
                 :
-                <h2>is Loading</h2>
+                <Loader />
             }
         </>
     );

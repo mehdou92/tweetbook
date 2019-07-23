@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Tweet from '../Tweet';
 import { FirebaseContext } from "../Firebase";
+import Loader from '../Loader';
 
 export default function ListTweets(props) {
 
@@ -42,7 +43,8 @@ export default function ListTweets(props) {
                 });
                 
                 if(index == search.length - 1) {
-                    lastTweets.sort((a, b) => b.dateFeed - a.dateFeed);
+
+                    lastTweets.sort((a, b) => b.props.createdAt - a.props.createdAt);
                     setIsLoading(true);
                     setTweets(lastTweets);
                 }
@@ -53,13 +55,15 @@ export default function ListTweets(props) {
         }
     }
 
+    
+
     useEffect(() => {
         getLastTweets();
     }, []);
 
     return (
         <>
-            { isLoading ? tweets : <h2>You need to follow someone to see some tweets</h2> }
+            { isLoading ? tweets : <Loader /> }
         </>
     );
 }
