@@ -160,7 +160,7 @@ export default function Tweet(props) {
   }
 
   return (
-      <div class="mx-auto font-sans rounded bg-blue-900 text-white border px-6 py-4 max-w-md tweet">
+      <div class="mx-auto font-sans rounded bg-blue-900 text-white border px-6 py-4 tweet">
         {console.log('Tweet user', user)}
         <div>
           {user.userId !== props.userId

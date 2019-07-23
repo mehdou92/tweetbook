@@ -51,14 +51,14 @@ export default function Profile(props) {
             profileUser
             &&
             <>
-              <div class="font-sans leading-tight min-h-screen bg-grey-lighter p-8">
-                <div class="w-full mx-auto bg-white rounded-lg overflow-hidden shadow-lg">
+              <div class="font-sans leading-tight min-h-screen bg-grey-lighter ">
+                <div class="w-full mx-auto rounded-lg overflow-hidden text-white">
                   <div>
                     <img class="w-full h-40" src={ `${background}` } />
                   </div>
                   <div class="border-b px-4 pb-6">
                     <div class="text-center sm:text-left sm:flex mb-4">
-                      <img class="h-32 w-32 rounded-full border-4 border-white -mt-16 mr-4" src="https://randomuser.me/api/portraits/women/21.jpg" alt="" />
+                      <img class="h-32 w-32 rounded-full -mt-16 mr-4" src="https://randomuser.me/api/portraits/women/21.jpg" alt="" />
                       <div class="py-2">
                         <h3 class="font-bold text-2xl mb-1">{profileUser.username}</h3>
                         <div class="inline-flex text-grey-dark sm:flex items-center">
@@ -98,7 +98,7 @@ export default function Profile(props) {
                           <svg className="h-6 w-6 text-grey mr-1 inline-flex" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                               <path d="M0 0h24v24H0z" fill="none"/><path fill="#3BA9EE" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
                           </svg>
-                        <strong>70 </strong><span className="text-counter">Likes</span>
+                        <strong>70 </strong><span className="text-counter">In Loves</span>
                       </div>
 
                     </div>
