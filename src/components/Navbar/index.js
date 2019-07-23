@@ -37,13 +37,41 @@ export default function Navbar() {
   return (
     <div class="flex mb-4" >
       <div class="flex-1">
-        <nav class="flex items-center justify-between flex-wrap bg-gray-800 p-6">
-          <div class="flex items-center flex-shrink-0 text-white mx-auto">
+        <nav class="flex items-center justify-between flex-wrap bg-gray-800 py-6 nav-mobile">
+          <div class="flex items-center flex-shrink-0 text-white mx-auto logo-mobile">
             <svg class="fill-current h-8 w-8 mr-2" width="54" height="54" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg"><path d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z" /></svg>
             <span class="font-semibold text-xl tracking-tight">TweetBook</span>
           </div>
           <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto navbar-menu">
             <div class="text-sm lg:flex-grow flex">
+                {
+                  (isLoading && user)
+                  ?
+                  <>
+                    <input
+                    className="appearance-none block w-2/5 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-2 ml-12 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 search-user"
+                    id="input-search"
+                    type="text"
+                    placeholder="Search User"
+                    maxLength="280"
+                    name="searchUser"
+                    value={search}
+                    onChange={e => setSearch(e.target.value)}
+                    />
+                    <Link to={`/search/${search}`}>
+                      <button
+                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mb-2 rounded-full ml-4 search-user"
+                      type="submit"
+                      onClick={searchUser}
+                      >
+                      Search
+                      </button>
+                    </Link>
+                  </>
+                  :
+                  <>
+                  </>
+                }
               <Link to="/">
                 <button class="flex text-blue-500 hover:bg-blue-900 font-semibold py-2 px-4">
                   Home
@@ -65,25 +93,6 @@ export default function Navbar() {
                         Logout
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z" /><path fill="#4299e1" d="M13 3h-2v10h2V3zm4.83 2.17l-1.42 1.42C17.99 7.86 19 9.81 19 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.19 1.01-4.14 2.58-5.42L6.17 5.17C4.23 6.82 3 9.26 3 12c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.74-1.23-5.18-3.17-6.83z" /></svg>
                       </button>
-                    </Link>
-                    <input
-                      class="appearance-none block w-2/5 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                      id="input-search"
-                      type="text"
-                      placeholder="Search User"
-                      maxLength="280"
-                      name="searchUser"
-                      value={search}
-                      onChange={e => setSearch(e.target.value)}
-                    />
-                    <Link to={`/search/${search}`} >
-                      <button
-                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mb-2 rounded-full"
-                        type="submit"
-                        onClick={searchUser}
-                      >
-                        Search
-                    </button>
                     </Link>
                   </>
                   :
