@@ -8,7 +8,7 @@ export default function OfflineDetection() {
   };
 
   return (
-    <div className="flex mb-12 offline-card" style={divStyle}>
+    <div className="flex offline-card" style={divStyle}>
       <Offline>You are no longer connected to the internet, please check your network settings</Offline>
     </div>
   );

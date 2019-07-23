@@ -15,22 +15,6 @@ export default function InputTweet() {
         setValues(values => ({ ...values, [event.target.name]: event.target.value }));
     };
 
-    // const addNewTweet = () => {
-
-    //     store.collection('tweets').add({
-    //         'tweetId': uuid(),
-    //         'userId': user.userId,
-    //         'username': user.username,
-    //         'text': values.tweet,
-    //         'createdAt': Date.now(),
-    //         'like': 0,
-    //         'retweet': 0,
-    //         'comment': 0,
-    //         'userIdRetweet': []
-    //     });
-    //     setNewTweet('');
-    // };
-
         const addNewTweet = () => {
 
         store.collection('tweets').add({
@@ -48,7 +32,7 @@ export default function InputTweet() {
     
 
     return (
-        <div class="w-full md:w-1/2 bg-blue-900 px-3 tweeter-border">
+        <div class="mx-auto w-full md:w-1/2 bg-blue-900 px-3 tweeter-border">
             <label class="block uppercase tracking-wide text-white text-xs font-bold mb-2" for="input-tweet">
                 What's happening ?
       </label>
@@ -68,7 +52,7 @@ export default function InputTweet() {
                 onClick={addNewTweet}
             >
                 Tweet
-</button>
+            </button>
         </div>
     );
 }
