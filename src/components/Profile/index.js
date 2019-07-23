@@ -73,7 +73,6 @@ export default function Profile(props) {
         setProfileUser(userFromUsername);
       })
       .catch(function (error) {
-        console.error("Error getting documents: ", error);
       });
   };
 

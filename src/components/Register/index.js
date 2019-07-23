@@ -15,8 +15,6 @@ export default function Register(props) {
   const firebase = getFirebase();
 
   function handleRegister() {
-    console.log(values);
-    console.log('Handle Register : ', values);
     insertUserFirebase();
   }
 
@@ -36,7 +34,6 @@ export default function Register(props) {
         props.history.push('/');
 
       }).catch(errors => {
-        console.error(errors.message);
       })
   }
 

@@ -23,7 +23,6 @@ export default function ListTweets(props) {
                 });
             })
             .catch(function (error) {
-                console.error("ERROR getting documents tweets ", error);
             });
     }
 
@@ -50,7 +49,6 @@ export default function ListTweets(props) {
                 }
             })
             .catch(function (error) {
-                console.error("ERROR getting documents tweets ", error);
             });
         }
     }

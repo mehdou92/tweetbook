@@ -121,8 +121,6 @@ export default function Navbar() {
                     </Link>
                   </>
               }
-              {/* {console.log("Nav Bar user : ", user)}
-                { console.log("Nav Bar isLogged : ", isLogged())} */}
             </div>
           </div>
         </nav>

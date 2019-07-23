@@ -37,18 +37,14 @@ class FirebaseProvider extends Component {
       .then(function () {
         localStorage.removeItem('user');
       }, function (error) {
-        console.error('Signout error :', error);
       });
   }
 
   isLogged = () => {
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
-        //console.log("USER LOGGED :", user);
         return true;
       } else {
-        // No user is signed in.
-        console.error('User not logged');
         return false;
       }
     });

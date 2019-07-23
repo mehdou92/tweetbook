@@ -11,7 +11,6 @@ export default function SignIn(props) {
   const { values, handleChange, handleSubmit, errors } = useForm(handleSignIn, validate);
 
   function handleSignIn() {
-    console.log('handleSignIn');
     firebaseConnect();
   }
 
@@ -22,7 +21,6 @@ export default function SignIn(props) {
         db.collection('users').where('email', '==', values.email).get()
         .then(response => {
           response.forEach(user => {
-            console.log(" USER DATA SIGN IN : ", user.data());
             setUser(user.data());
             localStorage.setItem('user', JSON.stringify(user.data()));
           });

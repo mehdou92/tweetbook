@@ -13,8 +13,6 @@ const useForm = (callback, validate) => {
   }, [errors]);
 
   const handleSubmit = (event) => {
-    console.log(values);
-    console.log('handleSubmit', event);
     if (event) event.preventDefault();
     setErrors(validate(values));
     setIsSubmitting(true);
