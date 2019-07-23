@@ -9,11 +9,24 @@ export default function ListTweets(props) {
     const [isLoading, setIsLoading] = useState(false);
     const [tweets, setTweets] = useState(null);
     let lastTweets = [];
+    let search = []
     const getLastTweets = () => {
+    
+        store.collection('users').where('userId', '==', user.userId)
+            .get()
+            .then(function (querySnapchot) {
+                querySnapchot.forEach(function (doc) {
+                    const element = doc.data();
+                    search = element.follows;
+                    construct();
+                });
+            })
+            .catch(function (error) {
+                console.error("ERROR getting documents tweets ", error);
+            });
+    }
 
-        
-        let search = [];
-        search = user.follows;
+    const construct = () => {
         if(!search.includes(user.userId)) {
             search.push(user.userId);
         }
@@ -38,28 +51,6 @@ export default function ListTweets(props) {
                 console.error("ERROR getting documents tweets ", error);
             });
         }
-
-        // search.forEach(follow => {
-        //     store.collection('tweets').where('userId', '==', follow).limit(20)
-        //     .get()
-        //     .then(function (querySnapchot) {
-        //         querySnapchot.forEach(function (doc) {
-        //             const tweet = doc.data();
-        //             lastTweets.push(<Tweet tweetId={tweet.tweetId} username={tweet.username} userId={tweet.userId} createdAt={tweet.createdAt} text={tweet.text} nbComment={tweet.comment} nbLike={tweet.like} nbRetweet={tweet.retweet} />);
-        //         });
-        //         setTweets(lastTweets);
-        //         setIsLoading(true);
-                
-        //     })
-        //     .catch(function (error) {
-        //         console.error("ERROR getting documents tweets ", error);
-        //     });
-        //     console.warn('tweets : ', lastTweets);
-            
-        // });
-        // console.warn('lastTweets : ', lastTweets);
-        
-        
     }
 
     useEffect(() => {
