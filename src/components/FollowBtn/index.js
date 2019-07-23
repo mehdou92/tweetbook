@@ -64,6 +64,7 @@ export default function FollowBtn(props) {
         });   
       });
     }
+    setFollowStatus(!followStatus);
   }
 
   return useMemo(() => {
