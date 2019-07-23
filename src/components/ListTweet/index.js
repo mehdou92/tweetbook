@@ -43,6 +43,7 @@ export default function ListTweets(props) {
                 });
                 
                 if(index == search.length - 1) {
+
                     lastTweets.sort((a, b) => b.props.createdAt - a.props.createdAt);
                     setIsLoading(true);
                     setTweets(lastTweets);
