@@ -10,6 +10,149 @@ export default function Tweet(props) {
   const { user, getStore } = useContext(FirebaseContext);
   const store = getStore();
 
+  const like = () => {
+    console.log('like');
+    store.collection('tweets').where('tweetId', '==', props.tweetId)
+      .get()
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          console.log('Tweet id + data', doc.id, " => ", doc.data());
+          console.log('toto');
+          //document.ref.collection('like').get()
+          console.log(doc);
+
+          store.collection('tweets').doc(doc.id).collection('like').get()
+            .then(sub => {
+              if (sub.docs.length > 0) {
+                console.log('sub like exist');
+                console.log(sub);
+
+                let BreakException = {};
+                let alreadyLike = null;
+
+                store.collection('tweets').doc(doc.id).collection('like')
+                  .get()
+                  .then(function (querySnapshot) {
+
+                    try {
+                      querySnapshot.forEach(function (doc) {
+                        let collectionLike = doc.data();
+                        if (collectionLike.userIdLike === user.userId) {
+                          console.log('already Like');
+                          alreadyLike = doc.data();
+                          throw BreakException;
+                        }
+                      });
+                    } catch (e) {
+                      if (e !== BreakException) throw e;
+                    }
+
+                    if (alreadyLike) {
+                      console.log('DECREMENTE');
+
+                      store.collection("tweets").doc(alreadyLike.docId).update({
+                        like: firebase.firestore.FieldValue.increment(-1)
+                      })
+
+                      store.collection("tweets").doc(alreadyLike.docId).collection('like').doc(user.userId).delete().then(function () {
+                        console.log("Document successfully deleted!");
+                      }).catch(function (error) {
+                        console.error("Error removing document: ", error);
+                      })
+
+                    } else {
+                      console.log('INCREMENTE');
+                      querySnapshot.forEach(function (doc) {
+                        let collectionLike = doc.data();
+                        store.collection("tweets").doc(collectionLike.docId).collection('like').doc(user.userId).set({
+                          userIdLike: user.userId,
+                          likedAt: Date.now(),
+                          docId: collectionLike.docId
+                        })
+                        store.collection("tweets").doc(collectionLike.docId).update({
+                          like: firebase.firestore.FieldValue.increment(1)
+                        })
+                      })
+                    }
+                  })
+              } else {
+                // subCollection don't exist
+                console.log('sub dont exist ');
+                store.collection("tweets").doc(doc.id).collection('like').doc(user.userId).set({
+                  userIdLike: user.userId,
+                  likedAt: Date.now(),
+                  docId: doc.id
+                })
+                store.collection("tweets").doc(doc.id).update({
+                  like: firebase.firestore.FieldValue.increment(1)
+                })
+              }
+            })
+        })
+      });
+
+    store.collection('users').where('userId', '==', user.userId)
+      .get()
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          store.collection("users").doc(doc.id).collection('like').get()
+            .then(sub => {
+              if (sub.docs.length > 0) {
+                console.log('sub exist user');
+                console.log(sub);
+
+                let BreakUser = {};
+                let userAlreadyLike = null;
+
+                store.collection('users').doc(doc.id).collection('like')
+                  .get()
+                  .then(function (querySnapshot) {
+
+                    try {
+                      querySnapshot.forEach(function (doc) {
+                        let collectionLikeUser = doc.data();
+                        if (collectionLikeUser.tweetId === props.tweetId) {
+                          console.log('already liked user');
+                          userAlreadyLike = doc.data();
+                          throw BreakUser;
+                        }
+                      })
+                    } catch (e) {
+                      if (e !== BreakUser) throw e;
+                    }
+
+                    if (userAlreadyLike) {
+                      console.log('DECREMENTE USER');
+                      console.log(userAlreadyLike);
+
+                      store.collection('users').doc(doc.id).collection('like').doc(userAlreadyLike.tweetId).delete().then(function () {
+                        console.log("Document successfully deleted!");
+                      }).catch(function (error) {
+                        console.error("Error removing document: ", error);
+                      })
+                    } else {
+                      console.log('INCREMENTE USER');
+
+                      store.collection("users").doc(doc.id).collection('like').doc(props.tweetId).set({
+                        tweetId: props.tweetId,
+                        likedAt: Date.now(),
+                      })
+                    }
+                  })
+
+              } else {
+                console.log('sub dont exit user');
+                store.collection("users").doc(doc.id).collection('like').doc(props.tweetId).set({
+                  tweetId: props.tweetId,
+                  likedAt: Date.now(),
+                })
+              }
+            })
+        });
+      });
+    
+  }
+
   const retweet = () => {
     console.log('retweet');
     console.log('props tweetid ', props.tweetId);
@@ -198,7 +341,7 @@ export default function Tweet(props) {
             <span>{props.nbRetweet}</span>
           </div>
           <div class="flex items-center">
-            <svg class="mr-2" width="24" height="24" viewBox="0 0 24 24"><path class="fill-current" d="M12 21.638h-.014C9.403 21.59 1.95 14.856 1.95 8.478c0-3.064 2.525-5.754 5.403-5.754 2.29 0 3.83 1.58 4.646 2.73.813-1.148 2.353-2.73 4.644-2.73 2.88 0 5.404 2.69 5.404 5.755 0 6.375-7.454 13.11-10.037 13.156H12zM7.354 4.225c-2.08 0-3.903 1.988-3.903 4.255 0 5.74 7.035 11.596 8.55 11.658 1.52-.062 8.55-5.917 8.55-11.658 0-2.267-1.822-4.255-3.902-4.255-2.528 0-3.94 2.936-3.952 2.965-.23.562-1.156.562-1.387 0-.015-.03-1.426-2.965-3.955-2.965z" /></svg>
+            <svg onClick={like} class="mr-2" width="24" height="24" viewBox="0 0 24 24"><path class="fill-current" d="M12 21.638h-.014C9.403 21.59 1.95 14.856 1.95 8.478c0-3.064 2.525-5.754 5.403-5.754 2.29 0 3.83 1.58 4.646 2.73.813-1.148 2.353-2.73 4.644-2.73 2.88 0 5.404 2.69 5.404 5.755 0 6.375-7.454 13.11-10.037 13.156H12zM7.354 4.225c-2.08 0-3.903 1.988-3.903 4.255 0 5.74 7.035 11.596 8.55 11.658 1.52-.062 8.55-5.917 8.55-11.658 0-2.267-1.822-4.255-3.902-4.255-2.528 0-3.94 2.936-3.952 2.965-.23.562-1.156.562-1.387 0-.015-.03-1.426-2.965-3.955-2.965z" /></svg>
             <span>{props.nbLike}</span>
           </div>
         </div>
