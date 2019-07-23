@@ -29,7 +29,8 @@ export default function Register(props) {
           'username': values.username,
           'email': values.email,
           'retweet': [],
-          'follows': []
+          'follows': [],
+          'followers': []
         });
 
         props.history.push('/');

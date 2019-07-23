@@ -73,6 +73,19 @@ export default function Profile(props) {
                       <button className="inline-flex bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mb-2 rounded-full">Follow</button>
                     </div>
                   </div>
+                  <div class="px-4 py-4">
+                    <div class="flex items-center text-grey-darker mb-4">
+                      <svg class="h-6 w-6 text-grey mr-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path class="heroicon-ui" d="M12 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-2a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm9 11a1 1 0 0 1-2 0v-2a3 3 0 0 0-3-3H8a3 3 0 0 0-3 3v2a1 1 0 0 1-2 0v-2a5 5 0 0 1 5-5h8a5 5 0 0 1 5 5v2z" /></svg>
+                      <span><strong class="text-black">{profileUser.followers.length}</strong> Followers</span>
+                    </div>
+                    <div class="flex">
+                      <div class="flex flex-row-reverse justify-end mr-2">
+                        <img class="border-2 border-white rounded-full h-10 w-10" src="https://randomuser.me/api/portraits/men/32.jpg" alt="" />
+                        <img class="border-2 border-white rounded-full h-10 w-10 -mr-2" src="https://randomuser.me/api/portraits/women/31.jpg" alt="" />
+                        <img class="border-2 border-white rounded-full h-10 w-10 -mr-2" src="https://randomuser.me/api/portraits/men/33.jpg" alt="" />
+                        <img class="border-2 border-white rounded-full h-10 w-10 -mr-2" src="https://randomuser.me/api/portraits/women/32.jpg" alt="" />
+                        <img class="border-2 border-white rounded-full h-10 w-10 -mr-2" src="https://randomuser.me/api/portraits/men/44.jpg" alt="" />
+                        <img class="border-2 border-white rounded-full h-10 w-10 -mr-2" src="https://randomuser.me/api/portraits/women/42.jpg" alt="" />
                   <div class="px-4 py-4 ">
                     <div class="flex items-center text-grey-darker px-4 pb-6 border-b">
                       <div class="flex-1">
@@ -105,6 +118,9 @@ export default function Profile(props) {
                     <div className="px-4 py-4 ">
                       <ListTweetUser userId={profileUser.userId} />
                     </div>
+                  </div>
+                </div>
+              </div>
                   </div>
                 </div>
               </div>

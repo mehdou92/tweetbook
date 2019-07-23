@@ -5,7 +5,7 @@ import { FirebaseContext } from '../Firebase';
 
 export default function FollowBtn(props) {
 
-  const { user, isLogged, getStore } = useContext(FirebaseContext);
+  const { user, setUser, isLogged, getStore } = useContext(FirebaseContext);
   const store = getStore();
   let showBtn = false;
   let arrayFollows = [];
@@ -24,6 +24,19 @@ export default function FollowBtn(props) {
           store.collection("users").doc(doc.id)
             .update({ follows: firebase.firestore.FieldValue.arrayUnion(props.user.userId) })
           user.follows.push(props.user.userId);
+          console.warn('FOLLOW : ', user);
+          setUser(user);
+        });   
+      });
+
+      store.collection("users").where("userId", "==", props.user.userId)
+      .get()
+      .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+
+          store.collection("users").doc(doc.id)
+            .update({ followers: firebase.firestore.FieldValue.arrayUnion(user.userId) })
+          user.followers.push(user.userId);
         });   
       });
     } else {
@@ -34,11 +47,23 @@ export default function FollowBtn(props) {
           
           store.collection("users").doc(doc.id)
             .update({ follows : firebase.firestore.FieldValue.arrayRemove(props.user.userId) })
+            user.follows.push(props.user.userId);
+            console.warn('UNFOLLOW : ', user);
+            setUser(user);
+        });   
+      });
 
-      });   
+      store.collection("users").where("userId", "==", props.user.userId)
+      .get()
+      .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+
+          store.collection("users").doc(doc.id)
+            .update({ followers: firebase.firestore.FieldValue.arrayRemove(user.userId) })
+          user.followers.push(user.userId);
+        });   
       });
     }
-    
   }
 
   return useMemo(() => {
