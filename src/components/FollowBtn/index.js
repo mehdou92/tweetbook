@@ -11,6 +11,7 @@ export default function FollowBtn(props) {
   let arrayFollows = [];
 
   let [followStatus, setFollowStatus] = useState(user.follows.includes(props.user.userId));
+  console.warn('followStatus : ', followStatus);
 
 
 

@@ -26,7 +26,6 @@ export default function ListTweetsUSer(props) {
             })
             .catch(function (error) {
                 reject(error);
-                console.error("ERROR getting documents tweets ", error);
             });
     });
 
@@ -44,7 +43,6 @@ export default function ListTweetsUSer(props) {
             })
             .catch(function (error) {
                 reject(error);
-                console.error('Error getUser Retweet ', error);
             })
     });
 
@@ -66,7 +64,6 @@ export default function ListTweetsUSer(props) {
                             })
                             .catch(function (error) {
                                 reject(error);
-                                console.error('Error getRetweetFromCollection ', error);
                             })
 
                     } else {
@@ -99,7 +96,6 @@ export default function ListTweetsUSer(props) {
                         })
                         .catch(function (error) {
                             reject(error);
-                            console.error('Error getTweetFromRetweet ', error);
                         })
                 })
             }
@@ -149,21 +145,13 @@ export default function ListTweetsUSer(props) {
     const displayListTweets = (arrayTweets) => {
         const renderElem = [];
         arrayTweets.forEach(tweet => {
-            // console.log('elem display', tweet);
             renderElem.push(<Tweet tweetId={tweet.tweetId} username={tweet.username} userId={tweet.userId} createdAt={tweet.createdAt} text={tweet.text} nbComment={tweet.comment} nbLike={tweet.like} nbRetweet={tweet.retweet} retweeted={tweet.isRetweet && true} />);
         })
         setListElemTweets(renderElem);
     }
 
     useEffect(() => {
-        // getLastTweets();
-        // getRetweet();
         orderTweet();
-        // orderTweet().then(data => {
-        //     console.log(data);
-        // })
-        // orderTweet();
-        console.log('state ordered tweets ', listTweets);
     }, [isLoading]);
 
     return (
