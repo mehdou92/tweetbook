@@ -1,0 +1,23 @@
+@media screen and (max-width: 640px) {
+  .navbar-menu{
+    visibility: hidden;
+    height: 0;
+  }
+
+  .search-user{
+    visibility: visible;
+  }
+
+  .nav-mobile{
+    padding-top: 1.5rem;
+    padding-bottom: 3.5rem;
+
+  }
+  .btn-search-user{
+    margin-left: 1rem;
+  }
+
+  .logo-mobile{
+    margin-left: 8rem;
+  }
+}

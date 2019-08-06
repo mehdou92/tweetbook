@@ -1,0 +1,213 @@
+$loader-size: 30px;
+$animation-speed: 0.9s;
+$blob-color: #4299e1;
+
+$orbiter-gap: $loader-size/4;
+$orbiter-size: $loader-size/2;
+$orbiter-center-position: #{-$orbiter-size - $orbiter-size/2};
+$orbiter-left-position: -#{$orbiter-gap + $orbiter-size};
+$orbiter-right-position: #{$orbiter-gap + $orbiter-size + $orbiter-size};
+
+$surface-tension-thickness: $loader-size/20;
+$surface-tension-width: $loader-size/2;
+$surface-tension-height: $surface-tension-width + ($loader-size/100 * 20);
+
+.overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999999;
+  .loader-wrapper {
+    box-sizing: border-box;
+    width: $loader-size + $orbiter-size*2 + $orbiter-gap*2;
+    padding-left: $orbiter-size + $orbiter-gap;
+    display: block;
+    .loader {
+      width: $loader-size;
+      height: $loader-size;
+      .center {
+        width: $loader-size;
+        height: $loader-size;
+        border-radius: $loader-size;
+        background-color: $blob-color;
+        animation: absorb $animation-speed ease-in-out infinite;
+        &::before {
+          content: "";
+          position: absolute;
+          display: block;
+          width: $surface-tension-width;
+          height: $surface-tension-height;
+          top: calc(50% - #{$surface-tension-height/2});
+          left: -$surface-tension-thickness;
+          border-radius: 100%;
+          background-color: $blob-color;
+          opacity: 0;
+          animation: surface-tension-left $animation-speed ease-in-out infinite;
+        }
+        &::after {
+          content: "";
+          position: absolute;
+          display: block;
+          width: $surface-tension-width;
+          height: $surface-tension-height;
+          top: calc(50% - #{$surface-tension-height/2});
+          right: -$surface-tension-thickness;
+          border-radius: 100%;
+          background-color: $blob-color;
+          opacity: 0;
+          animation: surface-tension-right $animation-speed ease-in-out infinite;
+        }
+      }
+      .orbiter-wrapper {
+        width: $orbiter-size;
+        height: $orbiter-size;
+        border-radius: $orbiter-size;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transform: translate($orbiter-left-position, $orbiter-center-position);
+        animation: left-right $animation-speed ease-in-out infinite;
+      }
+      .orbiter {
+        width: $orbiter-size;
+        height: $orbiter-size;
+        display: block;
+        border-radius: $orbiter-size;
+        background-color: $blob-color;
+        transform: scale(1);
+        position: relative;
+        animation: scale-in-out $animation-speed ease-in-out infinite;
+        &::before {
+          content: "";
+          display: block;
+          position: absolute;
+          height: $orbiter-size/2;
+          width: $orbiter-size;
+          top: $orbiter-size/4;
+          left: $orbiter-size/4;
+          background-color: $blob-color;
+          transform: scaleY(0);
+          animation: square-surface-tension-left $animation-speed ease-in-out
+            infinite;
+        }
+        &::after {
+          content: "";
+          display: block;
+          position: absolute;
+          height: $orbiter-size/2;
+          width: $orbiter-size;
+          top: $orbiter-size/4;
+          right: $orbiter-size/4;
+          background-color: $blob-color;
+          transform: scaleY(0);
+          animation: square-surface-tension-right $animation-speed ease-in-out
+            infinite;
+        }
+      }
+    }
+  }
+}
+@keyframes square-surface-tension-left {
+  0%,
+  14%,
+  24%,
+  74%,
+  85% {
+    transform: scaleY(0);
+  }
+  16.5%,
+  23.5%,
+  78.5%,
+  84.5% {
+    transform: scaleY(1);
+  }
+}
+@keyframes surface-tension-left {
+  0%,
+  16%,
+  24%,
+  78%,
+  85% {
+    opacity: 0;
+  }
+  16.5%,
+  23.5%,
+  78.5%,
+  84.5% {
+    opacity: 1;
+  }
+}
+
+@keyframes surface-tension-right {
+  0%,
+  26%,
+  34%,
+  68%,
+  76% {
+    opacity: 0;
+  }
+  26.5%,
+  33.5%,
+  68.5%,
+  75.5% {
+    opacity: 1;
+  }
+}
+
+@keyframes square-surface-tension-right {
+  0%,
+  24%,
+  34%,
+  64%,
+  76% {
+    transform: scaleY(0);
+  }
+  26.5%,
+  33.5%,
+  68.5%,
+  75.5% {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes left-right {
+  10%,
+  90% {
+    transform: translate($orbiter-left-position, $orbiter-center-position);
+  }
+  40%,
+  60% {
+    transform: translate($orbiter-right-position, $orbiter-center-position);
+  }
+}
+
+@keyframes scale-in-out {
+  0%,
+  50%,
+  100% {
+    transform: scale(1);
+  }
+  15%,
+  25%,
+  75% {
+    transform: scale(1, 0.8);
+  }
+}
+
+@keyframes absorb {
+  15%,
+  35%,
+  70%,
+  85% {
+    transform: scale(1);
+  }
+  20%,
+  30% {
+    transform: scale(1.1);
+  }
+
+  75%,
+  80% {
+    transform: scale(1.1);
+  }
+}
